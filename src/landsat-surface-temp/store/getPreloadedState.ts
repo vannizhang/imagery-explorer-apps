@@ -97,12 +97,14 @@ const getPreloadedMaskToolState = (
 ): MaskToolState => {
     const maskToolData = getMaskToolDataFromHashParams(hashParams);
 
-    return {
+    const maskToolState: MaskToolState = {
         ...initialMaskToolState,
         ...maskToolData,
-        spectralIndex: 'temperature farhenheit',
+        selectedIndex: 'temperature farhenheit',
         shouldClipMaskLayer: true,
-    } as MaskToolState;
+    };
+
+    return maskToolState;
 };
 
 const getPreloadedTrendToolState = (
@@ -110,11 +112,13 @@ const getPreloadedTrendToolState = (
 ): TrendToolState => {
     const trendToolData = getTemporalProfileToolDataFromHashParams(hashParams);
 
-    return {
+    const trendToolState = {
         ...initialTrendToolState,
         ...trendToolData,
         spectralIndex: 'temperature farhenheit',
-    } as TrendToolState;
+    };
+
+    return trendToolState;
 };
 
 export const getPreloadedState = async (): Promise<PartialRootState> => {

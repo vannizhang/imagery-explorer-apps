@@ -23,11 +23,16 @@ import ErrorBoundary from '@shared/components/ErrorBoundary/ErrorBoundary';
 import Map from './components/Map/Map';
 import Layout from './components/Layout/Layout';
 import '@shared/components/calcite-components';
+import { initializeApp } from '@shared/utils/initialize-app/initializeApp';
 // import AppContextProvider from '@shared/contexts/AppContextProvider';
 // import { getTimeExtentOfLandsatService } from '@shared/services/landsat-level-2/getTimeExtent';
 // import { LANDSAT_RASTER_FUNCTION_INFOS } from '@shared/services/landsat-level-2/config';
 
 (async () => {
+    await initializeApp({
+        appId: '',
+    });
+
     const store = await getLandsatExplorerStore();
 
     // const timeExtent = await getTimeExtentOfLandsatService();
