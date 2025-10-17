@@ -25,15 +25,25 @@ import { IS_MOBILE_DEVICE } from '@shared/constants/UI';
 import { appConfig } from '@shared/config';
 import { selectAppMode } from '@shared/store/ImageryScene/selectors';
 import { TrendTool } from '../TrendTool';
-import { LandsatSurefaceTempModeSelector } from '../ModeSelector';
+// import { LandsatSurefaceTempModeSelector } from '../ModeSelector';
 import { DynamicModeInfo } from '../DynamicModeInfo/DynamicModeInfo';
 import { useOpenAboutThisAppLink } from '../../hooks/useOpenAboutThisAppLink';
 import { useQueryAvailableLandsatScenes } from '@landsat-explorer/hooks/useQueryAvailableLandsatScenes';
+import {
+    ContainerOfSecondaryControls,
+    ModeSelector,
+} from '@shared/components/ModeSelector';
+import { useShouldShowSecondaryControls } from '@shared/hooks/useShouldShowSecondaryControls';
+import { SwipeLayerSelector } from '@shared/components/SwipeLayerSelector';
+import { AnimationControl } from '@shared/components/AnimationControl';
+import { AnalyzeToolSelector4LandsatSurfaceTemp } from '../ModeSelector/AnalyzeToolSelector';
 
 const Layout = () => {
     const mode = useAppSelector(selectAppMode);
 
     const dynamicModeOn = mode === 'dynamic';
+
+    const shouldShowSecondaryControls = useShouldShowSecondaryControls();
 
     useSaveAppState2HashParams();
 
@@ -65,7 +75,16 @@ const Layout = () => {
             <AppHeader title={appConfig.title} />
             <BottomPanel>
                 <div className="flex flex-shrink-0">
-                    <LandsatSurefaceTempModeSelector />
+                    {/* <LandsatSurefaceTempModeSelector /> */}
+                    <ModeSelector />
+
+                    {shouldShowSecondaryControls && (
+                        <ContainerOfSecondaryControls>
+                            <SwipeLayerSelector />
+                            <AnimationControl />
+                            <AnalyzeToolSelector4LandsatSurfaceTemp />
+                        </ContainerOfSecondaryControls>
+                    )}
                 </div>
 
                 <div className="flex flex-grow justify-center shrink-0">

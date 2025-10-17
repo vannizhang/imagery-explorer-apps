@@ -21,6 +21,7 @@ import {
     getMapCenterFromHashParams,
     getMaskToolDataFromHashParams,
     getQueryParams4MainSceneFromHashParams,
+    getQueryParams4SecondarySceneFromHashParams,
     getTemporalProfileToolDataFromHashParams,
 } from '@shared/utils/url-hash-params';
 
@@ -72,11 +73,16 @@ const getPreloadedImageryScenesState = (
         ...DefaultQueryParams4ImageryScene,
     };
 
+    const queryParams4SecondaryScene =
+        getQueryParams4SecondarySceneFromHashParams(hashParams) || {
+            ...DefaultQueryParams4ImageryScene,
+        };
+
     const rasterFunction4MainScene: LandsatRasterFunctionName =
         'Surface Temperature Colorized (Fahrenheit) for Visualization';
 
     const rasterFunction4SecondaryScene: LandsatRasterFunctionName =
-        'Natural Color for Visualization';
+        'Surface Temperature Colorized (Fahrenheit) for Visualization';
 
     return {
         ...initialImagerySceneState,
@@ -86,7 +92,7 @@ const getPreloadedImageryScenesState = (
             rasterFunctionName: rasterFunction4MainScene,
         },
         queryParams4SecondaryScene: {
-            ...queryParams4MainScene,
+            ...queryParams4SecondaryScene,
             rasterFunctionName: rasterFunction4SecondaryScene,
         },
     };

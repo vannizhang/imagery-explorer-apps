@@ -47,9 +47,11 @@ export const LandsatLayer: FC<Props> = ({ mapView, groupLayer }: Props) => {
         }
 
         if (mode === 'analysis') {
+            const isAnalysisToolUsingMainScene =
+                activeAnalysisTool === 'mask' || activeAnalysisTool === 'trend';
+
             return (
-                activeAnalysisTool === 'mask' &&
-                objectIdOfSelectedScene !== null
+                isAnalysisToolUsingMainScene && objectIdOfSelectedScene !== null
             );
         }
 
