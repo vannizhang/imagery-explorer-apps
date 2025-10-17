@@ -33,8 +33,13 @@ import { updateQueryLocation4SpectralProfileTool } from '@shared/store/SpectralP
 import { useAppDispatch } from '@shared/store/configureStore';
 import { SwipeWidget4ImageryLayers } from '@shared/components/SwipeWidget/SwipeWidget4ImageryLayers';
 import { LANDSAT_LEVEL_2_SERVICE_URL } from '@shared/services/landsat-level-2/config';
+import { AnimationLayer } from '@shared/components/AnimationLayer';
+import { useTranslation } from 'react-i18next';
+import { APP_NAME } from '@shared/config';
 
 const Map = () => {
+    const { t } = useTranslation();
+
     const dispatch = useAppDispatch();
 
     return (
@@ -54,6 +59,13 @@ const Map = () => {
                 <MaskLayer />
                 <AnalysisToolQueryLocation />
                 <MapPopUpAnchorPoint />
+                <AnimationLayer
+                    imageryServiceUrl={LANDSAT_LEVEL_2_SERVICE_URL}
+                    authoringAppName="landsat-surface-temperature"
+                    animationMetadataSources={t('animation_metadata', {
+                        ns: APP_NAME,
+                    })}
+                />
             </GroupLayer>
             {/* <SwipeWidget /> */}
 

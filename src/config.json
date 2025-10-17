@@ -30,7 +30,7 @@
             "pathname": "/spectralsampler",
             "entrypoint": "/src/spectral-sampling-tool/index.tsx"
         },
-        "landsat-surface-temp": {
+        "surfacetemperature": {
             "title": "Landsat Surface Temperature",
             "description": "Explore Landsat surface temperature archive",
             "pathname": "/landsat-surface-temp",
