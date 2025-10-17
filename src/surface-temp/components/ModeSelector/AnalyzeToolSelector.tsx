@@ -56,11 +56,11 @@ export const AnalyzeToolSelector4LandsatSurfaceTemp = () => {
                 title: t('temporal'),
                 subtitle: t('profile').toLowerCase(),
             },
-            // {
-            //     tool: 'spectral',
-            //     title: t('spectral'),
-            //     subtitle: t('profile').toLowerCase(),
-            // },
+            {
+                tool: 'urban heat island',
+                title: t('SIUHI'),
+                subtitle: t('urban heat island').toLowerCase(),
+            },
             // {
             //     tool: 'change',
             //     title: t('change'),
