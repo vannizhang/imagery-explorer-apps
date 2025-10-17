@@ -59,7 +59,7 @@ export const AnalyzeToolSelector4LandsatSurfaceTemp = () => {
             {
                 tool: 'urban heat island',
                 title: t('SIUHI'),
-                subtitle: t('urban heat island').toLowerCase(),
+                subtitle: t('Surface Heat Index').toLowerCase(),
             },
             // {
             //     tool: 'change',
