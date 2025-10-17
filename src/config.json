@@ -33,8 +33,8 @@
         "surfacetemperature": {
             "title": "Landsat Surface Temperature",
             "description": "Explore Landsat surface temperature archive",
-            "pathname": "/landsat-surface-temp",
-            "entrypoint": "/src/landsat-surface-temp/index.tsx"
+            "pathname": "/surface-temp",
+            "entrypoint": "/src/surface-temp/index.tsx"
         },
         "nlcdlandcoverexplorer": {
             "title": "Esri | NLCD Land Cover Explorer",
