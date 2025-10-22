@@ -21,6 +21,11 @@ export const getAppLanguage = () => {
     return lang.toLowerCase();
 };
 
+/**
+ * Sets the application language in the URL query parameters and reloads the page.
+ * @param lang - The language code to set in the URL.
+ * @returns void
+ */
 export const setAppLanguageInUrl = (lang: string) => {
     const searchParams = new URLSearchParams(window.location.search);
     // Format the lang to lowercase and handle 'en' as default
