@@ -20,3 +20,26 @@ export const getAppLanguage = () => {
     // if the lang query parameter is found, return it
     return lang.toLowerCase();
 };
+
+export const setAppLanguageInUrl = (lang: string) => {
+    const searchParams = new URLSearchParams(window.location.search);
+    // Format the lang to lowercase and handle 'en' as default
+    const langFormatted =
+        lang && lang.toLowerCase() !== 'en' ? lang.toLowerCase() : null;
+
+    // update the lang query parameter in the URL
+    if (!langFormatted) {
+        searchParams.delete('lang');
+    } else {
+        searchParams.set('lang', lang);
+    }
+
+    // construct the new URL with updated query parameters
+    const newRelativePathQuery =
+        window.location.pathname +
+        '?' +
+        searchParams.toString() +
+        window.location.hash;
+    window.history.replaceState(null, '', newRelativePathQuery);
+    window.location.reload();
+};

@@ -1,6 +1,11 @@
 import { appConfig } from '@shared/config';
 import React from 'react';
 
+export type SupportedLocaleData = {
+    code: string;
+    label: string;
+};
+
 const LOCALE_LABEL: {
     [key: string]: string;
 } = {
@@ -8,7 +13,7 @@ const LOCALE_LABEL: {
     es: 'Español',
 };
 
-export const useSupportedLocales = () => {
+export const useSupportedLocales = (): SupportedLocaleData[] => {
     const supportedLocales = React.useMemo(() => {
         const locales = appConfig.supportedLocales || ['en'];
 

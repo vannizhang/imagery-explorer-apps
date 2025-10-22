@@ -33,6 +33,8 @@ import { ReferenceLayersToggleControl } from './ReferenceLayersToggleControl';
 import { useSupportedLocales } from './useSupportedLocales';
 import { CalciteButton } from '@esri/calcite-components-react';
 import { LocaleSwitcher } from './LocaleSwitcher';
+import { useTranslation } from 'react-i18next';
+import useOnClickOutside from '@shared/hooks/useOnClickOutside';
 
 type ToggleButtonProps = {
     label: string;
@@ -45,11 +47,19 @@ type Props = {
 };
 
 export const ReferenceLayersAndLocaleControl: FC<Props> = ({ shoudHide }) => {
+    const { t } = useTranslation();
+
     const supportedLocales = useSupportedLocales();
 
     const showLocaleSwitcher = supportedLocales.length > 1;
 
     const [isLocaleMenuOpen, setIsLocaleMenuOpen] = React.useState(false);
+
+    const containerRef = React.useRef<HTMLDivElement>(null);
+
+    useOnClickOutside(containerRef, () => {
+        setIsLocaleMenuOpen(false);
+    });
 
     return (
         <div
@@ -62,16 +72,24 @@ export const ReferenceLayersAndLocaleControl: FC<Props> = ({ shoudHide }) => {
             style={{
                 right: 15, // this is the margin to right value of JSAPI search Widget
             }}
+            ref={containerRef}
         >
             <ReferenceLayersToggleControl />
 
             {showLocaleSwitcher && (
-                <div className="flex items-center justify-center px-1 border-l border-custom-light-blue-50">
+                <div
+                    className="flex items-center justify-center px-1 border-l border-custom-light-blue-50"
+                    style={{
+                        '--calcite-button-text-color':
+                            'var(--custom-light-blue)',
+                    }}
+                >
                     <CalciteButton
                         appearance="transparent"
                         scale="s"
                         // className="ml-2"
                         kind="neutral"
+                        label={t('switch_language')}
                         onClick={() => {
                             setIsLocaleMenuOpen(!isLocaleMenuOpen);
                         }}
@@ -80,7 +98,9 @@ export const ReferenceLayersAndLocaleControl: FC<Props> = ({ shoudHide }) => {
                 </div>
             )}
 
-            {showLocaleSwitcher && isLocaleMenuOpen && <LocaleSwitcher />}
+            {showLocaleSwitcher && isLocaleMenuOpen && (
+                <LocaleSwitcher data={supportedLocales} />
+            )}
         </div>
     );
 };
