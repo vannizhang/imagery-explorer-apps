@@ -20,14 +20,9 @@ import { Provider as ReduxProvider } from 'react-redux';
 
 import { getLandcoverExplorerStore } from './store';
 import AppLayout from './components/AppLayout/AppLayout';
-// import { loadServiceInfo } from '@shared/services/sentinel-2-10m-landcover/loadServiceInfo';
-// import { initEsriOAuth } from '../shared/utils/esri-oauth';
-// import { APP_ID } from './constants';
 import { ErrorPage } from '@shared/components/ErrorPage';
-// import { initI18next } from '@shared/i18n/initI18next';
-// import { APP_LANGUAGE } from '@shared/constants/UI';
 import '@shared/components/calcite-components';
-import { AGOL_PORTAL_ROOT, LANDCOVER_EXPLORER_APP_ID } from '@shared/config';
+import { LANDCOVER_EXPLORER_APP_ID } from '@shared/config';
 import { loadSentinel2LandcoverRasterAttributeTable } from '@shared/services/sentinel-2-10m-landcover/rasterAttributeTable';
 import { loadTimeInfo } from '@shared/services/sentinel-2-10m-landcover/timeInfo';
 import { SENTINEL_2_LANDCOVER_10M_IMAGE_SERVICE_URL } from '@shared/services/sentinel-2-10m-landcover/config';
@@ -37,13 +32,6 @@ import { initializeApp } from '@shared/utils/initialize-app/initializeApp';
     const root = createRoot(document.getElementById('root'));
 
     try {
-        // await initI18next(APP_LANGUAGE);
-
-        // await initEsriOAuth({
-        //     appId: LANDCOVER_EXPLORER_APP_ID,
-        //     portalUrl: AGOL_PORTAL_ROOT,
-        // });
-
         await initializeApp({
             appId: LANDCOVER_EXPLORER_APP_ID,
         });
