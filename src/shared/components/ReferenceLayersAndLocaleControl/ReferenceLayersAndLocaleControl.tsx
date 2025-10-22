@@ -30,6 +30,9 @@ import React, { FC } from 'react';
 // import { useAppSelector } from '@shared/store/configureStore';
 // import { useTranslation } from 'react-i18next';
 import { ReferenceLayersToggleControl } from './ReferenceLayersToggleControl';
+import { useSupportedLocales } from './useSupportedLocales';
+import { CalciteButton } from '@esri/calcite-components-react';
+import { LocaleSwitcher } from './LocaleSwitcher';
 
 type ToggleButtonProps = {
     label: string;
@@ -42,10 +45,16 @@ type Props = {
 };
 
 export const ReferenceLayersAndLocaleControl: FC<Props> = ({ shoudHide }) => {
+    const supportedLocales = useSupportedLocales();
+
+    const showLocaleSwitcher = supportedLocales.length > 1;
+
+    const [isLocaleMenuOpen, setIsLocaleMenuOpen] = React.useState(false);
+
     return (
         <div
             className={classNames(
-                'absolute bg-custom-background flex  px-1 text-custom-light-blue text-xs top-map-ui-top-position',
+                'absolute bg-custom-background flex text-custom-light-blue text-xs top-map-ui-top-position',
                 {
                     hidden: shoudHide,
                 }
@@ -55,6 +64,23 @@ export const ReferenceLayersAndLocaleControl: FC<Props> = ({ shoudHide }) => {
             }}
         >
             <ReferenceLayersToggleControl />
+
+            {showLocaleSwitcher && (
+                <div className="flex items-center justify-center px-1 border-l border-custom-light-blue-50">
+                    <CalciteButton
+                        appearance="transparent"
+                        scale="s"
+                        // className="ml-2"
+                        kind="neutral"
+                        onClick={() => {
+                            setIsLocaleMenuOpen(!isLocaleMenuOpen);
+                        }}
+                        iconStart="language-2"
+                    />
+                </div>
+            )}
+
+            {showLocaleSwitcher && isLocaleMenuOpen && <LocaleSwitcher />}
         </div>
     );
 };
