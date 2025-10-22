@@ -21,7 +21,7 @@ export const LocaleSwitcher: FC<Props> = ({ data }) => {
     }
 
     return (
-        <div className="absolute top-full w-full bg-custom-background px-4 pt-4 text-custom-light-blue border-t border-custom-light-blue-50">
+        <div className="absolute top-full w-full bg-custom-background px-4 pt-4 text-custom-light-blue border-t border-custom-light-blue-50 max-h-80 overflow-y-auto">
             <CalciteRadioButtonGroup
                 layout="vertical"
                 onCalciteRadioButtonGroupChange={(event) => {
