@@ -13,4 +13,5 @@
  * limitations under the License.
  */
 
-export { ReferenceLayersToggleControl } from './ReferenceLayersToggleControl';
+// export { ReferenceLayersToggleControl } from './ReferenceLayersToggleControl';
+export { ReferenceLayersAndLocaleControl } from './ReferenceLayersAndLocaleControl';

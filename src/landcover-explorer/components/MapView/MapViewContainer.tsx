@@ -55,7 +55,7 @@ import MapView from '@shared/components/MapView/MapView';
 import { MapActionButtonGroup4LandcoverExplorer } from './MapActionButtonGroup4LandcoverExplorer';
 import { APP_NAME } from '@shared/config';
 import { useTranslation } from 'react-i18next';
-import { ReferenceLayersToggleControl } from '@shared/components/ReferenceLayersToggleControl';
+import { ReferenceLayersAndLocaleControl } from '@shared/components/ReferenceLayersAndLocaleControl';
 import { WEB_MAP_ID } from '@shared/constants/map';
 import ReferenceLayers from '@shared/components/MapView/ReferenceLayers';
 
@@ -191,7 +191,9 @@ export const MapViewContainer: FC<MapViewContainerProps> = ({
                 {children}
             </MapView>
 
-            <ReferenceLayersToggleControl shoudHide={animationMode !== null} />
+            <ReferenceLayersAndLocaleControl
+                shoudHide={animationMode !== null}
+            />
 
             <MapInfoIndicators
                 isUpdating={isUpdating}
