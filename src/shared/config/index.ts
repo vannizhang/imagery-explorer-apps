@@ -40,7 +40,9 @@ export const APP_NAME: AppName = WEBPACK_DEFINED_APP_NAME as AppName;
 /**
  * config file for the imagery explorer app to start/build
  */
-export const appConfig: AppConfig = config.apps[APP_NAME];
+export const appConfig: Readonly<AppConfig> = Object.freeze(
+    config.apps[APP_NAME] as AppConfig
+);
 
 /**
  * Root URL of the ArcGIS Portal

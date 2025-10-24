@@ -62,3 +62,6 @@ export const selectAnimationStatus = (state: RootState) =>
 
 export const selectHideNotification = (state: RootState) =>
     state.UI.hideNotification;
+
+export const selectAppHeaderDropdownPanel = (state: RootState) =>
+    state.UI.appHeaderDropdownPanel;

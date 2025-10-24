@@ -311,5 +311,6 @@
     "horizontal": "Horizontal",
     "square": "Square",
     "translation_provider_info": "Localized translations for this app are provided by {{provider}}.",
-    "switch_language": "Switch Language"
+    "switch_language": "Switch Language",
+    "choose_language": "Choose Language"
 }

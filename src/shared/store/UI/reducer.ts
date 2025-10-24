@@ -28,6 +28,8 @@ export type AnimationStatus =
     | 'pausing'
     | 'failed-loading';
 
+export type AppHeaderDropdownPanel = 'app-list' | 'locale-switcher';
+
 export type TooltipData = {
     /**
      * title of the tooltip
@@ -100,6 +102,10 @@ export type UIState = {
      * if true, hide notification
      */
     hideNotification: boolean;
+    /**
+     * which dropdown panel is opened in the app header
+     */
+    appHeaderDropdownPanel: AppHeaderDropdownPanel;
 };
 
 export const initialUIState: UIState = {
@@ -117,6 +123,7 @@ export const initialUIState: UIState = {
     showDocPanel: false,
     showSavePanel: false,
     hideNotification: false,
+    appHeaderDropdownPanel: null,
 };
 
 const slice = createSlice({
@@ -181,6 +188,12 @@ const slice = createSlice({
         hideNotificationToggled: (state) => {
             state.hideNotification = !state.hideNotification;
         },
+        appHeaderDropdownPanelChanged: (
+            state,
+            action: PayloadAction<AppHeaderDropdownPanel>
+        ) => {
+            state.appHeaderDropdownPanel = action.payload;
+        },
     },
 });
 
@@ -202,6 +215,7 @@ export const {
     showDocPanelToggled,
     showSavePanelToggled,
     hideNotificationToggled,
+    appHeaderDropdownPanelChanged,
 } = slice.actions;
 
 export default reducer;

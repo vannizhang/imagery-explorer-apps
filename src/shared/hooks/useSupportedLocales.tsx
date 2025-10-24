@@ -1,5 +1,6 @@
 import { appConfig } from '@shared/config';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export type SupportedLocaleData = {
     code: string;
@@ -10,7 +11,7 @@ const LOCALE_LABEL: {
     [key: string]: string;
 } = {
     en: 'English',
-    es: 'Español',
+    es: 'Español (Spanish)',
 };
 
 export const useSupportedLocales = (): SupportedLocaleData[] => {
