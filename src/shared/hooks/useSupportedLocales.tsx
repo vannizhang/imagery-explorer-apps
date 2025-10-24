@@ -15,7 +15,7 @@ const LOCALE_LABEL: {
 
 export const useSupportedLocales = (): SupportedLocaleData[] => {
     const supportedLocales = React.useMemo(() => {
-        const locales = appConfig.supportedLocales || ['en'];
+        const locales = appConfig?.supportedLocales || ['en'];
 
         return locales.map((locale) => {
             return {
