@@ -1,5 +1,18 @@
+import { APP_NAME, appConfig } from '@shared/config';
+import { normalizeLocale } from './helper';
+
 /**
- * Retrieves the application language from the URL query parameters.
+ * Key used to store the user's locale preference in localStorage.
+ */
+const LOCALE_PREFERENCE_KEY = APP_NAME + '_locale_preference';
+
+/**
+ * Key used to retrieve the locale from URL search parameters.
+ */
+const LOCALE_SEARCH_PARAM_KEY = 'lang';
+
+/**
+ * Retrieves the application language from the URL query parameters or localstorage.
  *
  * This function looks for the "lang" query parameter in the current URL.
  * If the parameter is found, its value is returned in lowercase.
@@ -10,33 +23,50 @@
 export const getAppLanguage = () => {
     // get the "lang" query parameter from the URL
     const searchParams = new URLSearchParams(window.location.search);
-    const lang = searchParams.get('lang');
+    const localeFromSearchParams =
+        searchParams.get(LOCALE_SEARCH_PARAM_KEY) || '';
 
-    // if the lang query parameter is not found, return 'en' as default
-    if (!lang) {
-        return 'en';
+    // get the locale preference from localStorage
+    const localeFromLocalStorage =
+        localStorage.getItem(LOCALE_PREFERENCE_KEY) || '';
+
+    // get the list of supported locales from appConfig
+    const supportedLocales = appConfig.supportedLocales;
+
+    const lang = normalizeLocale(
+        localeFromSearchParams || localeFromLocalStorage,
+        supportedLocales
+    );
+
+    // if the lang query parameter is found and is supported, return it
+    if (lang) {
+        return lang;
     }
 
-    // if the lang query parameter is found, return it
-    return lang.toLowerCase();
+    // if the lang query parameter is not found or not supported, return 'en' as the default language
+    return 'en';
 };
 
 /**
- * Sets the application language in the URL query parameters and reloads the page.
+ * Sets the preferred locale by updating the URL query parameter and localStorage.
+ * It also reloads the page to apply the language change.
  * @param lang - The language code to set in the URL.
  * @returns void
  */
-export const setAppLanguageInUrl = (lang: string) => {
+export const setPreferredLocale = (lang: string) => {
     const searchParams = new URLSearchParams(window.location.search);
     // Format the lang to lowercase and handle 'en' as default
-    const langFormatted =
-        lang && lang.toLowerCase() !== 'en' ? lang.toLowerCase() : null;
+    const langFormatted = normalizeLocale(lang, appConfig.supportedLocales);
 
-    // update the lang query parameter in the URL
-    if (!langFormatted) {
-        searchParams.delete('lang');
+    // update the lang query parameter in the URL and localStorage
+    // if lang is empty or 'en', remove the query parameter and localStorage item
+    // otherwise, set them to the formatted lang value
+    if (!langFormatted || langFormatted === 'en') {
+        searchParams.delete(LOCALE_SEARCH_PARAM_KEY);
+        localStorage.removeItem(LOCALE_PREFERENCE_KEY);
     } else {
-        searchParams.set('lang', lang);
+        searchParams.set(LOCALE_SEARCH_PARAM_KEY, langFormatted);
+        localStorage.setItem(LOCALE_PREFERENCE_KEY, langFormatted);
     }
 
     // construct the new URL with updated query parameters

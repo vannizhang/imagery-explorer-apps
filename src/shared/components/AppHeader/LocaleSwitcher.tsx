@@ -9,7 +9,7 @@ import {
     CalciteSelect,
 } from '@esri/calcite-components-react';
 import { APP_LANGUAGE } from '@shared/constants/UI';
-import { setAppLanguageInUrl } from '@shared/i18n/getAppLanguage';
+import { setPreferredLocale } from '@shared/i18n/getAppLanguage';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '@shared/store/configureStore';
 import { appHeaderDropdownPanelChanged } from '@shared/store/UI/reducer';
@@ -81,7 +81,7 @@ export const LocaleSwitcher: FC<Props> = ({ data }) => {
                     disabled={selectedLocale === APP_LANGUAGE}
                     // width='full'
                     onClick={() => {
-                        setAppLanguageInUrl(selectedLocale);
+                        setPreferredLocale(selectedLocale);
                     }}
                 >
                     {t('switch_language')}
@@ -92,7 +92,7 @@ export const LocaleSwitcher: FC<Props> = ({ data }) => {
                     scale="s"
                     // width='full'
                     onClick={() => {
-                        // setAppLanguageInUrl(selectedLocale);
+                        // setPreferredLocale(selectedLocale);
                         // close the panel
                         dispatch(appHeaderDropdownPanelChanged(null));
                     }}
@@ -109,7 +109,7 @@ export const LocaleSwitcher: FC<Props> = ({ data }) => {
                     const locale = selectedItem?.value || 'en';
                     setSelectedLocale(locale);
 
-                    setAppLanguageInUrl(locale);
+                    setPreferredLocale(locale);
                     // const locale = event.target.value as string;
                     // setSelectedLocale(locale);
                 }}
