@@ -8,3 +8,8 @@ jest.mock("nanoid", () => {
             .mockImplementationOnce(() => '5')
     }
 });
+
+jest.mock("@shared/i18n/getAppLanguage", () => ({
+    getAppLanguage: jest.fn(() => 'en'),
+    setPreferredLocale: jest.fn()
+}));

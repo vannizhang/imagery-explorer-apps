@@ -38,7 +38,7 @@ module.exports = {
         "^@shared(.*)$": "<rootDir>/src/shared$1",
     } ,
     globals: {
-        WEBPACK_DEFINED_APP_NAME: "landsatexplorer",
+        WEBPACK_DEFINED_APP_NAME: "mocked-app-name",
         ENV_LANDSAT_EXPLORER_APP_ID: "mock-landsat-explorer-app-id",
         ENV_LANDSAT_LEVEL_2_ORIGINAL_SERVICE_URL: "https://landsat-original.example.com",
         ENV_LANDSAT_LEVEL_2_PROXY_SERVICE_URL: "http://landsat-proxy.example.com",
