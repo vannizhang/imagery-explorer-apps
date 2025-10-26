@@ -11,5 +11,6 @@ jest.mock("nanoid", () => {
 
 jest.mock("@shared/i18n/getAppLanguage", () => ({
     getAppLanguage: jest.fn(() => 'en'),
+    getSuggestedLocale: jest.fn(() => 'en'),
     setPreferredLocale: jest.fn()
 }));

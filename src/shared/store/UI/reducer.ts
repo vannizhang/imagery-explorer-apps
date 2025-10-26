@@ -106,6 +106,11 @@ export type UIState = {
      * which dropdown panel is opened in the app header
      */
     appHeaderDropdownPanel: AppHeaderDropdownPanel;
+    /**
+     * if true, the user has chosen to not have the app suggest a locale on startup.
+     * This is used to prevent repeatedly suggesting a locale after the user has dismissed the suggestion.
+     */
+    hasDisabledLocaleSuggestion: boolean;
 };
 
 export const initialUIState: UIState = {
@@ -124,6 +129,7 @@ export const initialUIState: UIState = {
     showSavePanel: false,
     hideNotification: false,
     appHeaderDropdownPanel: null,
+    hasDisabledLocaleSuggestion: false,
 };
 
 const slice = createSlice({
@@ -194,6 +200,12 @@ const slice = createSlice({
         ) => {
             state.appHeaderDropdownPanel = action.payload;
         },
+        hasDisabledLocaleSuggestionChanged: (
+            state,
+            action: PayloadAction<boolean>
+        ) => {
+            state.hasDisabledLocaleSuggestion = action.payload;
+        },
     },
 });
 
@@ -216,6 +228,7 @@ export const {
     showSavePanelToggled,
     hideNotificationToggled,
     appHeaderDropdownPanelChanged,
+    hasDisabledLocaleSuggestionChanged,
 } = slice.actions;
 
 export default reducer;

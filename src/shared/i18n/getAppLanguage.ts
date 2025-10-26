@@ -48,6 +48,37 @@ export const getAppLanguage = () => {
 };
 
 /**
+ * Suggests the most appropriate locale for the application based on user and browser preferences.
+ *
+ * The function checks for the browser's language setting and normalizes it.
+ * If the normalized locale is supported, it is returned. Otherwise, 'en' is returned as the default locale.
+ *
+ * @returns {string} The suggested locale code (e.g., 'en', 'es', etc.).
+ */
+export const getSuggestedLocale = () => {
+    const supportedLocales = appConfig.supportedLocales;
+
+    // // get the locale preference from localStorage
+    // const userPreferredLocale = localStorage.getItem(LOCALE_PREFERENCE_KEY) || '';
+
+    // let lang = normalizeLocale(userPreferredLocale, supportedLocales);
+
+    // if(lang){
+    //     return lang;
+    // }
+
+    // get the browser's language setting
+    const browserLocale = navigator.language || '';
+
+    // normalize and validate the browser locale
+    // if it's not supported, an empty string will be returned
+    const lang = normalizeLocale(browserLocale, supportedLocales);
+
+    // return the suggested locale or default to 'en'
+    return lang || 'en';
+};
+
+/**
  * Sets the preferred locale by updating the URL query parameter and localStorage.
  * It also reloads the page to apply the language change.
  * @param lang - The language code to set in the URL.

@@ -65,3 +65,6 @@ export const selectHideNotification = (state: RootState) =>
 
 export const selectAppHeaderDropdownPanel = (state: RootState) =>
     state.UI.appHeaderDropdownPanel;
+
+export const selectHasDisabledLocaleSuggestion = (state: RootState) =>
+    state.UI.hasDisabledLocaleSuggestion;

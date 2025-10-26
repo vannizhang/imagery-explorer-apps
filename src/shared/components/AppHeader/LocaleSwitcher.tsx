@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { SupportedLocaleData } from '../../hooks/useSupportedLocales';
 import {
     CalciteButton,
@@ -8,14 +8,23 @@ import {
     CalciteRadioButtonGroup,
     CalciteSelect,
 } from '@esri/calcite-components-react';
-import { APP_LANGUAGE } from '@shared/constants/UI';
+import { APP_LANGUAGE, SUGGESTED_LOCALE } from '@shared/constants/UI';
 import { setPreferredLocale } from '@shared/i18n/getAppLanguage';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '@shared/store/configureStore';
+import { useAppDispatch, useAppSelector } from '@shared/store/configureStore';
 import { appHeaderDropdownPanelChanged } from '@shared/store/UI/reducer';
 
 type Props = {
+    /**
+     * data of supported locales
+     */
     data: SupportedLocaleData[];
+    /**
+     * whether it should suggest locale switch.
+     * If true, the component can show suggestion message along with the locale switcher.
+     * It also show a checkbox to allow the user to disable future locale suggestions.
+     */
+    shouldSuggestLocale: boolean;
 };
 
 export const LocaleSwitcher: FC<Props> = ({ data }) => {
@@ -23,8 +32,9 @@ export const LocaleSwitcher: FC<Props> = ({ data }) => {
 
     const dispatch = useAppDispatch();
 
-    const [selectedLocale, setSelectedLocale] =
-        React.useState<string>(APP_LANGUAGE);
+    const [selectedLocale, setSelectedLocale] = React.useState<string>(
+        SUGGESTED_LOCALE || APP_LANGUAGE
+    );
 
     if (!data || data.length === 0) {
         return null;
@@ -100,32 +110,6 @@ export const LocaleSwitcher: FC<Props> = ({ data }) => {
                     {t('cancel')}
                 </CalciteButton>
             </div>
-            {/* <CalciteRadioButtonGroup
-                layout="vertical"
-                onCalciteRadioButtonGroupChange={(event) => {
-                    // console.log(event.target.selectedItem);
-                    const selectedItem = event.target
-                        .selectedItem as HTMLCalciteRadioButtonElement;
-                    const locale = selectedItem?.value || 'en';
-                    setSelectedLocale(locale);
-
-                    setPreferredLocale(locale);
-                    // const locale = event.target.value as string;
-                    // setSelectedLocale(locale);
-                }}
-            >
-                {data.map((locale) => {
-                    return (
-                        <CalciteLabel key={locale.code} layout="inline">
-                            <CalciteRadioButton
-                                value={locale.code}
-                                checked={selectedLocale === locale.code}
-                            ></CalciteRadioButton>
-                            {locale.label}
-                        </CalciteLabel>
-                    );
-                })}
-            </CalciteRadioButtonGroup> */}
         </div>
     );
 };

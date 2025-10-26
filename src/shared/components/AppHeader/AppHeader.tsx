@@ -39,6 +39,7 @@ import { AppLauchList } from './AppLauchList';
 import { CalciteButton, CalciteIcon } from '@esri/calcite-components-react';
 import { useSupportedLocales } from '@shared/hooks/useSupportedLocales';
 import { LocaleSwitcher } from './LocaleSwitcher';
+import { useShouldSuggestLocale } from '@shared/hooks/useSuggestLocale';
 
 type Props = {
     /**
@@ -97,14 +98,32 @@ const AppHeader: FC<Props> = ({ title, showDocButton, docButtonTooltip }) => {
     const showImageryExplorerAppsList = appHeaderDropdownPanel === 'app-list';
 
     /**
-     * Determine whether to show the language switcher list
+     * Determine whether to show the language switcher list.
+     * It should only show the language switcher list if there is more than one supported locale.
      */
-    const showLocaleSwitcherList = appHeaderDropdownPanel === 'locale-switcher';
+    const showLocaleSwitcherList = useMemo(() => {
+        return (
+            appHeaderDropdownPanel === 'locale-switcher' &&
+            supportedLocales.length &&
+            supportedLocales.length > 1
+        );
+    }, [appHeaderDropdownPanel, supportedLocales?.length]);
 
     /**
      * Determine whether to show the language switcher button
      */
     const showLanguageSwitcherToggleButton = supportedLocales.length > 1;
+
+    /**
+     * Determine whether to suggest locale switch on app startup.
+     * This hook will open the locale switcher panel if it should suggest locale.
+     * The criteria for suggesting locale switch is:
+     * 1. there is a suggested locale
+     * 2. the suggested locale is different from the current app language
+     * 3. the user has not disabled locale suggestion
+     * 4. there is more than one supported locale
+     */
+    const shouldSuggestLocale = useShouldSuggestLocale(supportedLocales.length);
 
     useOnClickOutside(
         containerRef,
@@ -248,7 +267,10 @@ const AppHeader: FC<Props> = ({ title, showDocButton, docButtonTooltip }) => {
             )}
 
             {showLocaleSwitcherList && (
-                <LocaleSwitcher data={supportedLocales} />
+                <LocaleSwitcher
+                    data={supportedLocales}
+                    shouldSuggestLocale={shouldSuggestLocale}
+                />
             )}
         </div>
     );

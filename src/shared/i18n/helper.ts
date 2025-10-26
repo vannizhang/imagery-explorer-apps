@@ -19,7 +19,7 @@ export const normalizeLocale = (
         return '';
     }
 
-    locale = locale.split('_')[0]; // handle cases like 'en_US' by taking only 'en'
+    locale = locale.split('-')[0]; // handle cases like 'en-US' by taking only 'en'
     locale = locale.toLowerCase();
 
     if (supportedLocales && !supportedLocales.includes(locale)) {

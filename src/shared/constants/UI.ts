@@ -13,13 +13,23 @@
  * limitations under the License.
  */
 
-import { getAppLanguage } from '@shared/i18n/getAppLanguage';
+import {
+    getAppLanguage,
+    getSuggestedLocale,
+} from '@shared/i18n/getAppLanguage';
 import { isMobileDevice } from 'helper-toolkit-ts';
 
 /**
- * The language to use for the app. This is set by the `lang` query parameter in the URL.
+ * The language to use for the app. This is determined by the `lang` query parameter in the URL,
+ * or the user's locale preference stored in localStorage, or defaults to 'en' if neither is set.
  */
 export const APP_LANGUAGE = getAppLanguage();
+
+/**
+ * The suggested locale for the application, based on user preferences or browser settings.
+ * If no suitable locale is found, defaults to `en`.
+ */
+export const SUGGESTED_LOCALE = getSuggestedLocale();
 
 /**
  * default format that will be used to format datetime info in the app.
