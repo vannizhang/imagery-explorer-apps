@@ -56,6 +56,13 @@ const localeSwitcherStringsByLocale: LocaleSwitcherStringsByLocale = {
             'La aplicación está disponible en español. ¿Desea cambiar?',
         do_not_show_again: 'No volver a mostrar este mensaje',
     },
+    zh: {
+        choose_language: '选择语言',
+        switch_language: '切换语言',
+        cancel: '取消',
+        locale_switcher_suggestion_message: '该应用程序提供中文。您想切换吗？',
+        do_not_show_again: '不再显示此消息',
+    },
 };
 
 export const LocaleSwitcher: FC<Props> = ({ data, shouldSuggestLocale }) => {

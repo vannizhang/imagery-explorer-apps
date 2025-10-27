@@ -1,4 +1,5 @@
 import { appConfig } from '@shared/config';
+import { de, fr, ja, ko, pt } from 'date-fns/locale';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -12,6 +13,7 @@ const LOCALE_LABEL: {
 } = {
     en: 'English',
     es: 'Español (Spanish)',
+    zh: '中文 (Chinese)',
 };
 
 export const useSupportedLocales = (): SupportedLocaleData[] => {
