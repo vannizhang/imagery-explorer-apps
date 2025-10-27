@@ -1,7 +1,5 @@
 import { appConfig } from '@shared/config';
-import { de, fr, ja, ko, pt } from 'date-fns/locale';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 export type SupportedLocaleData = {
     code: string;
