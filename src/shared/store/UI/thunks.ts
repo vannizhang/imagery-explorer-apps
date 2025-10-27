@@ -18,9 +18,11 @@ import { RootState, StoreDispatch, StoreGetState } from '../configureStore';
 import {
     TooltipData,
     animationLinkIsCopiedChanged,
+    hasDisabledLocaleSuggestionChanged,
     tooltipDataChanged,
 } from './reducer';
 import { COPIED_LINK_MESSAGE_TIME_TO_STAY_OPEN_IN_MILLISECONDS } from '@shared/constants/UI';
+import { setLocaleSuggestionPreferenceInLocalstorage } from '@shared/i18n/getAppLanguage';
 
 const DebounceDealy = 250;
 
@@ -51,4 +53,16 @@ export const copyAnimationLink =
         // the message should be turned off after 3 seconds
         await delay(COPIED_LINK_MESSAGE_TIME_TO_STAY_OPEN_IN_MILLISECONDS);
         dispatch(animationLinkIsCopiedChanged(false));
+    };
+
+export const toggleDisableLocaleSuggestion =
+    (shouldDisable: boolean) =>
+    (dispatch: StoreDispatch, getState: StoreGetState) => {
+        // const state: RootState = getState();
+        // const currentUIState = state.UI;
+
+        // save the preference in localStorage
+        setLocaleSuggestionPreferenceInLocalstorage(shouldDisable);
+
+        dispatch(hasDisabledLocaleSuggestionChanged(shouldDisable));
     };

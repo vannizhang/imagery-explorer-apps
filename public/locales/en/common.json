@@ -312,5 +312,7 @@
     "square": "Square",
     "translation_provider_info": "Localized translations for this app are provided by {{provider}}.",
     "switch_language": "Switch Language",
-    "choose_language": "Choose Language"
+    "choose_language": "Choose Language",
+    "locale_switcher_suggestion_message": "Switch the language of the app to {{locale}}?",
+    "do_not_show_again": "Do not show again"
 }

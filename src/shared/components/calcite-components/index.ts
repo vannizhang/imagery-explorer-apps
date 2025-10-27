@@ -8,3 +8,4 @@ import '@esri/calcite-components/dist/components/calcite-input-text';
 import '@esri/calcite-components/dist/components/calcite-color-picker';
 import '@esri/calcite-components/dist/components/calcite-radio-button';
 import '@esri/calcite-components/dist/components/calcite-radio-button-group';
+import '@esri/calcite-components/dist/components/calcite-checkbox';

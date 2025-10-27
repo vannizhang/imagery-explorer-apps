@@ -7,6 +7,11 @@ import { normalizeLocale } from './helper';
 const LOCALE_PREFERENCE_KEY = APP_NAME + '_locale_preference';
 
 /**
+ * Key used to store the user's preference for disabling locale suggestions in localStorage.
+ */
+const LOCALE_SUGGESTION_DISABLED_KEY = APP_NAME + '_locale_suggestion_disabled';
+
+/**
  * Key used to retrieve the locale from URL search parameters.
  */
 const LOCALE_SEARCH_PARAM_KEY = 'lang';
@@ -108,4 +113,28 @@ export const setPreferredLocale = (lang: string) => {
         window.location.hash;
     window.history.replaceState(null, '', newRelativePathQuery);
     window.location.reload();
+};
+
+/**
+ * Save the user's preference for disabling locale suggestions in localStorage.
+ * @param shouldDisable {boolean} - Whether to disable locale suggestions.
+ * @returns void
+ */
+export const setLocaleSuggestionPreferenceInLocalstorage = (
+    shouldDisable: boolean
+) => {
+    if (shouldDisable) {
+        localStorage.setItem(LOCALE_SUGGESTION_DISABLED_KEY, 'true');
+    } else {
+        localStorage.removeItem(LOCALE_SUGGESTION_DISABLED_KEY);
+    }
+};
+
+/**
+ * Get the user's preference for disabling locale suggestions from localStorage.
+ * @returns {boolean} - True if locale suggestions are disabled, false otherwise.
+ */
+export const getLocaleSuggestionPreferenceFromLocalstorage = (): boolean => {
+    const value = localStorage.getItem(LOCALE_SUGGESTION_DISABLED_KEY);
+    return value === 'true';
 };
