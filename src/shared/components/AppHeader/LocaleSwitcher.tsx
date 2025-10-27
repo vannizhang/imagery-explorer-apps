@@ -29,6 +29,35 @@ type Props = {
     shouldSuggestLocale: boolean;
 };
 
+type LocaleSwitcherStringsByLocale = {
+    [locale: string]: {
+        choose_language: string;
+        switch_language: string;
+        cancel: string;
+        locale_switcher_suggestion_message: string;
+        do_not_show_again: string;
+    };
+};
+
+const localeSwitcherStringsByLocale: LocaleSwitcherStringsByLocale = {
+    en: {
+        choose_language: 'Choose Language',
+        switch_language: 'Switch Language',
+        cancel: 'Cancel',
+        locale_switcher_suggestion_message:
+            'The app is available in English. Would you like to switch?',
+        do_not_show_again: "Don't show this message again",
+    },
+    es: {
+        choose_language: 'Elegir idioma',
+        switch_language: 'Cambiar idioma',
+        cancel: 'Cancelar',
+        locale_switcher_suggestion_message:
+            'La aplicación está disponible en español. ¿Desea cambiar?',
+        do_not_show_again: 'No volver a mostrar este mensaje',
+    },
+};
+
 export const LocaleSwitcher: FC<Props> = ({ data, shouldSuggestLocale }) => {
     const { t } = useTranslation();
 
@@ -46,6 +75,16 @@ export const LocaleSwitcher: FC<Props> = ({ data, shouldSuggestLocale }) => {
         );
     }, []);
 
+    /**
+     * Get strings for the suggested locale or fallback to English
+     */
+    const strings = useMemo(() => {
+        return (
+            localeSwitcherStringsByLocale[SUGGESTED_LOCALE] ||
+            localeSwitcherStringsByLocale['en']
+        );
+    }, [APP_LANGUAGE]);
+
     if (!data || data.length === 0) {
         return null;
     }
@@ -55,18 +94,14 @@ export const LocaleSwitcher: FC<Props> = ({ data, shouldSuggestLocale }) => {
             {showSuggestedLocaleMessage ? (
                 <div className="mb-4">
                     <p className="text-sm">
-                        {t('locale_switcher_suggestion_message', {
-                            locale: data.find(
-                                (locale) => locale.code === SUGGESTED_LOCALE
-                            )?.label,
-                        })}
+                        {strings.locale_switcher_suggestion_message}
                     </p>
                 </div>
             ) : null}
 
             <CalciteLabel scale="s">
                 <span className="text-custom-light-blue text-sm">
-                    {t('choose_language')}:
+                    {strings.choose_language}:
                 </span>
                 <CalciteSelect
                     onCalciteSelectChange={(event) => {
@@ -117,7 +152,7 @@ export const LocaleSwitcher: FC<Props> = ({ data, shouldSuggestLocale }) => {
                         setPreferredLocale(selectedLocale);
                     }}
                 >
-                    {t('switch_language')}
+                    {strings.switch_language}
                 </CalciteButton>
 
                 <CalciteButton
@@ -130,7 +165,7 @@ export const LocaleSwitcher: FC<Props> = ({ data, shouldSuggestLocale }) => {
                         dispatch(appHeaderDropdownPanelChanged(null));
                     }}
                 >
-                    {t('cancel')}
+                    {strings.cancel}
                 </CalciteButton>
             </div>
 
@@ -138,7 +173,7 @@ export const LocaleSwitcher: FC<Props> = ({ data, shouldSuggestLocale }) => {
                 <div className="mt-4 flex items-center">
                     <CalciteCheckbox
                         scale="s"
-                        label={t('do_not_show_again')}
+                        label={strings.do_not_show_again}
                         onCalciteCheckboxChange={(event) => {
                             const checked = event.target.checked;
                             // console.log('disableLocaleSuggestion', checked);
@@ -157,7 +192,7 @@ export const LocaleSwitcher: FC<Props> = ({ data, shouldSuggestLocale }) => {
                         }}
                     />
                     <span className="text-custom-light-blue text-sm ml-2">
-                        {t('do_not_show_again')}
+                        {strings.do_not_show_again}
                     </span>
                 </div>
             )}
