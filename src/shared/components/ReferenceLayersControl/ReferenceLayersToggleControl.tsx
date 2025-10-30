@@ -73,7 +73,7 @@ const ToggleButton: FC<ToggleButtonProps> = ({
 }: ToggleButtonProps) => {
     return (
         <div
-            className="mx-2 cursor-pointer z-10 flex items-center"
+            className="mx-2 my-1 md:my-0 cursor-pointer z-10 flex items-center"
             onClick={onToggle}
         >
             {active ? CheckIcon : UncheckIcon}
@@ -108,7 +108,7 @@ export const ReferenceLayersToggleControl: FC = () => {
             // style={{
             //     right: 15, // this is the margin to right value of JSAPI search Widget
             // }}
-            className="relative flex py-2"
+            className="md:flex relative py-2"
         >
             <ToggleButton
                 label={t('map_labels')}
