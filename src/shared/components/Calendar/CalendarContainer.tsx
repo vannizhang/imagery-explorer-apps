@@ -102,16 +102,6 @@ const CalendarContainer: FC<Props> = ({ children }: Props) => {
      */
     const shouldBeDisabled = useShouldDisableCalendar();
 
-    // /**
-    //  * This custom hook is triggered whenever the user-selected acquisition date changes.
-    //  * It updates the user-selected year based on the year from the selected acquisition date.
-    //  */
-    // useUpdateAcquisitionYear();
-
-    // const shouldShowCloudFilter = useMemo(() => {
-    //     return APP_NAME === 'landsat' || APP_NAME === 'landsat-surface-temp';
-    // }, []);
-
     return (
         <div
             className={classNames('select-none', {

@@ -4,7 +4,6 @@
 module.exports = {
     setupFiles: ['./jest.setup.js'],
     
-    // Automatically clear mock calls and instances between every test
     clearMocks: true,
   
     // // An array of glob patterns indicating a set of files for which coverage information should be collected
@@ -39,21 +38,23 @@ module.exports = {
         "^@shared(.*)$": "<rootDir>/src/shared$1",
     } ,
     globals: {
-        "WEBPACK_DEFINED_APP_NAME": "landsat",
-        // LANDSAT_SERVICE_PROXY_URL_DEV: "http://localhost:3000/landsat-dev",
-        // LANDSAT_SERVICE_PROXY_URL_PROD: "https://api.example.com/landsat-prod",
-        // SENTINEL2_SERVICE_PROXY_URL_DEV: "http://localhost:3000/sentinel2-dev",
-        // SENTINEL2_SERVICE_PROXY_URL_PROD: "https://api.example.com/sentinel2-prod",
-        // SENTINEL1_SERVICE_PROXY_URL_DEV: "http://localhost:3000/sentinel1-dev",
-        // SENTINEL1_SERVICE_PROXY_URL_PROD: "https://api.example.com/sentinel1-prod",
-        // SERVICE_TIER: "development",
-        // CUSTOM_ARCGIS_PORTAL_ROOT: "https://www.arcgis.com",
-        ENV_LANDSAT_LEVEL_2_PROXY_SERVICE_URL: "http://landsat-proxy.example.com",
+        WEBPACK_DEFINED_APP_NAME: "mocked-app-name",
+        ENV_LANDSAT_EXPLORER_APP_ID: "mock-landsat-explorer-app-id",
         ENV_LANDSAT_LEVEL_2_ORIGINAL_SERVICE_URL: "https://landsat-original.example.com",
+        ENV_LANDSAT_LEVEL_2_PROXY_SERVICE_URL: "http://landsat-proxy.example.com",
+        ENV_SENTINEL2_EXPLORER_APP_ID: "mock-sentinel2-explorer-app-id",
         ENV_SENTINEL2_PROXY_SERVICE_URL: "http://sentinel2-proxy.example.com",
         ENV_SENTINEL2_ORIGINAL_SERVICE_URL: "https://sentinel2-original.example.com",
+        ENV_SENTINEL1_EXPLORER_APP_ID: "mock-sentinel1-explorer-app-id",
         ENV_SENTINEL1_PROXY_SERVICE_URL: "http://sentinel1-proxy.example.com",
         ENV_SENTINEL1_ORIGINAL_SERVICE_URL: "https://sentinel1-original.example.com",
-        ENV_ARCGIS_PORTAL_ROOT_URL: "https://www.arcgis.com"
+        ENV_ARCGIS_PORTAL_ROOT_URL: "https://www.arcgis.com",
+        ENV_RASTER_ANALYSIS_ROOT_URL: "https://rasteranalysis.example.com/arcgis/rest/services/RasterAnalysisTools/GPServer",
+        ENV_LANDCOVER_EXPLORER_APP_ID: "mock-landcover-explorer-app-id",
+        ENV_SENTINEL2_LANDCOVER_SERVICE_URL: "https://ic.example.com/arcgis/rest/services/Sentinel2_10m_LandCover/ImageServer",
+        ENV_SENTINEL2_LANDCOVER_STATISTICS_SERVICE_URL: "https://ic.example.com/arcgis/rest/services/Sentinel2_10m_LandCover_Statistics/ImageServer",
+        ENV_NLCD_LANDCOVER_EXPLORER_APP_ID: "mock-nlcd-landcover-explorer-app-id",
+        ENV_NLCD_LANDCOVER_SERVICE_URL: "https://ic.example.com/arcgis/rest/services/NLCD_LandCover/ImageServer",
+        ENV_WEB_MAP_ID: "mock-web-map-id"
     }
 };

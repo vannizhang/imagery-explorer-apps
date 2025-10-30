@@ -23,17 +23,33 @@ import { MaskTool } from '../MaskTool';
 import { useSaveAppState2HashParams } from '@shared/hooks/useSaveAppState2HashParams';
 import { IS_MOBILE_DEVICE } from '@shared/constants/UI';
 import { appConfig } from '@shared/config';
-import { selectAppMode } from '@shared/store/ImageryScene/selectors';
+import {
+    selectActiveAnalysisTool,
+    selectAppMode,
+} from '@shared/store/ImageryScene/selectors';
 import { TrendTool } from '../TrendTool';
-import { LandsatSurefaceTempModeSelector } from '../ModeSelector';
+// import { LandsatSurefaceTempModeSelector } from '../ModeSelector';
 import { DynamicModeInfo } from '../DynamicModeInfo/DynamicModeInfo';
 import { useOpenAboutThisAppLink } from '../../hooks/useOpenAboutThisAppLink';
 import { useQueryAvailableLandsatScenes } from '@landsat-explorer/hooks/useQueryAvailableLandsatScenes';
+import {
+    ContainerOfSecondaryControls,
+    ModeSelector,
+} from '@shared/components/ModeSelector';
+import { useShouldShowSecondaryControls } from '@shared/hooks/useShouldShowSecondaryControls';
+import { SwipeLayerSelector } from '@shared/components/SwipeLayerSelector';
+import { AnimationControl } from '@shared/components/AnimationControl';
+import { AnalyzeToolSelector4LandsatSurfaceTemp } from '../ModeSelector/AnalyzeToolSelector';
+import { UrbanHeatIsland } from '../UrbanHeatIsland';
 
 const Layout = () => {
     const mode = useAppSelector(selectAppMode);
 
+    const analyzeTool = useAppSelector(selectActiveAnalysisTool);
+
     const dynamicModeOn = mode === 'dynamic';
+
+    const shouldShowSecondaryControls = useShouldShowSecondaryControls();
 
     useSaveAppState2HashParams();
 
@@ -46,6 +62,31 @@ const Layout = () => {
     // Landsat Surface Temp app has no About This App Modal,
     // we will just open this link in a new tab whenever user clicks on the About button
     useOpenAboutThisAppLink();
+
+    const getBottomPanelContent = () => {
+        if (dynamicModeOn) {
+            return <DynamicModeInfo />;
+        }
+
+        if (mode === 'analysis' && analyzeTool === 'urban heat island') {
+            return <UrbanHeatIsland />;
+        }
+
+        return (
+            <>
+                <div className="ml-2 3xl:ml-0">
+                    <Calendar />
+                </div>
+
+                {mode === 'analysis' && (
+                    <div className="ml-6 3xl:ml-16">
+                        <MaskTool />
+                        <TrendTool />
+                    </div>
+                )}
+            </>
+        );
+    };
 
     if (IS_MOBILE_DEVICE) {
         return (
@@ -65,11 +106,20 @@ const Layout = () => {
             <AppHeader title={appConfig.title} />
             <BottomPanel>
                 <div className="flex flex-shrink-0">
-                    <LandsatSurefaceTempModeSelector />
+                    {/* <LandsatSurefaceTempModeSelector /> */}
+                    <ModeSelector />
+
+                    {shouldShowSecondaryControls && (
+                        <ContainerOfSecondaryControls>
+                            <SwipeLayerSelector />
+                            <AnimationControl />
+                            <AnalyzeToolSelector4LandsatSurfaceTemp />
+                        </ContainerOfSecondaryControls>
+                    )}
                 </div>
 
                 <div className="flex flex-grow justify-center shrink-0">
-                    {dynamicModeOn && <DynamicModeInfo />}
+                    {/* {dynamicModeOn && <DynamicModeInfo />}
 
                     {dynamicModeOn === false && (
                         <>
@@ -84,7 +134,8 @@ const Layout = () => {
                                 </div>
                             )}
                         </>
-                    )}
+                    )} */}
+                    {getBottomPanelContent()}
                 </div>
             </BottomPanel>
         </>

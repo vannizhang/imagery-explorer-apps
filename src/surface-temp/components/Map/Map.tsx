@@ -17,22 +17,29 @@ import React, { FC } from 'react';
 import MapViewContainer from '@shared/components/MapView/MapViewContainer';
 import { GroupLayer } from '@shared/components/GroupLayer';
 import { AnalysisToolQueryLocation } from '@shared/components/AnalysisToolQueryLocation';
-import { Zoom2NativeScale } from '@shared/components/Zoom2NativeScale/Zoom2NativeScale';
+// import { Zoom2NativeScale } from '@shared/components/Zoom2NativeScale/Zoom2NativeScale';
 import { MapPopUpAnchorPoint } from '@shared/components/MapPopUpAnchorPoint';
 import { HillshadeLayer } from '@shared/components/HillshadeLayer/HillshadeLayer';
 
-import { ScreenshotWidget } from '@shared/components/ScreenshotWidget/ScreenshotWidget';
+// import { ScreenshotWidget } from '@shared/components/ScreenshotWidget/ScreenshotWidget';
 // import { ZoomToExtent } from '@landsat-explorer/components/ZoomToExtent';
 import { Popup } from '@landsat-explorer/components/PopUp/';
 import { MaskLayer } from '@landsat-explorer/components/MaskLayer';
 import { LandsatLayer } from '../LandsatLayer';
-import { SwipeWidget } from '../SwipeWidget';
+// import { SwipeWidget } from '../SwipeWidget';
 import { CrosshairCursor } from './CrosshairCursor';
 import { updateQueryLocation4TrendTool } from '@shared/store/TrendTool/thunks';
 import { updateQueryLocation4SpectralProfileTool } from '@shared/store/SpectralProfileTool/thunks';
 import { useAppDispatch } from '@shared/store/configureStore';
+import { SwipeWidget4ImageryLayers } from '@shared/components/SwipeWidget/SwipeWidget4ImageryLayers';
+import { LANDSAT_LEVEL_2_SERVICE_URL } from '@shared/services/landsat-level-2/config';
+import { AnimationLayer } from '@shared/components/AnimationLayer';
+import { useTranslation } from 'react-i18next';
+import { APP_NAME } from '@shared/config';
 
 const Map = () => {
+    const { t } = useTranslation();
+
     const dispatch = useAppDispatch();
 
     return (
@@ -52,15 +59,20 @@ const Map = () => {
                 <MaskLayer />
                 <AnalysisToolQueryLocation />
                 <MapPopUpAnchorPoint />
+                <AnimationLayer
+                    imageryServiceUrl={LANDSAT_LEVEL_2_SERVICE_URL}
+                    authoringAppName="landsat-surface-temperature"
+                    animationMetadataSources={t('animation_metadata', {
+                        ns: APP_NAME,
+                    })}
+                />
             </GroupLayer>
-            <SwipeWidget />
-            <HillshadeLayer />
-            {/* <Zoom2NativeScale
-                nativeScale={113386}
-                tooltip={"Zoom to Landsat's native resolution"}
+            {/* <SwipeWidget /> */}
+
+            <SwipeWidget4ImageryLayers
+                serviceUrl={LANDSAT_LEVEL_2_SERVICE_URL}
             />
-            <ZoomToExtent />
-            <ScreenshotWidget /> */}
+            <HillshadeLayer />
             <Popup />
             {/* use crosshair cursor for the map component all the time */}
             <CrosshairCursor />

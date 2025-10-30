@@ -47,8 +47,9 @@
     "build:spectral-sampler:dev": "webpack --mode production --env app=spectralsampler --env envFileName=.env.development",
     "build:spectral-sampler:prod": "webpack --mode production --env app=spectralsampler --env envFileName=.env.production",
     "build:spectral-sampler": "webpack --mode production --env app=spectralsampler --env envFileName=.env",
-    "start:surface-temp": "webpack serve --mode development --open --env app=landsat-surface-temp",
-    "build:surface-temp": "webpack --mode production --env app=landsat-surface-temp",
+    "start:surface-temp:dev": "webpack serve --mode development --open --env app=surfacetemperature --env envFileName=.env.development",
+    "build:surface-temp:dev": "webpack --mode production --env app=surfacetemperature --env envFileName=.env.development",
+    "build:surface-temp:prod": "webpack --mode production --env app=surfacetemperature --env envFileName=.env.production",
     "prepare": "husky install",
     "format": "prettier --write 'src/**/*.{ts,tsx,json,css,scss}'",
     "lint": "eslint src --ext .ts,.tsx --fix"

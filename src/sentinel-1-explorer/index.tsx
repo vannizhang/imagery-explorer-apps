@@ -24,15 +24,9 @@ import { Map } from './components/Map/Map';
 import { Layout } from './components/Layout/Layout';
 import { AboutSentinel1Explorer } from './components/About';
 import { ErrorPage } from '@shared/components/ErrorPage';
-// import { getTimeExtentOfSentinel1Service } from '@shared/services/sentinel-1/getTimeExtent';
-// import AppContextProvider from '@shared/contexts/AppContextProvider';
-// import { SENTINEL1_RASTER_FUNCTION_INFOS } from '@shared/services/sentinel-1/config';
 import { Sentinel1DocPanel } from './components/DocPanel';
 import { initEsriOAuth } from '@shared/utils/esri-oauth';
 import { AGOL_PORTAL_ROOT, SENTINEL1_EXPLORER_APP_ID } from '@shared/config';
-import { initI18next } from '@shared/i18n/initI18next';
-// import { getTranslatedSentinel1RasterFunctionInfo } from './utils/getTranslatedSentinel1RasterFunctionInfo';
-import { APP_LANGUAGE } from '@shared/constants/UI';
 import '@shared/components/calcite-components';
 import { initializeApp } from '@shared/utils/initialize-app/initializeApp';
 
@@ -40,13 +34,6 @@ import { initializeApp } from '@shared/utils/initialize-app/initializeApp';
     const root = createRoot(document.getElementById('root'));
 
     try {
-        // await initEsriOAuth({
-        //     appId: SENTINEL1_EXPLORER_APP_ID,
-        //     portalUrl: AGOL_PORTAL_ROOT,
-        // });
-
-        // await initI18next(APP_LANGUAGE);
-
         await initializeApp({
             appId: SENTINEL1_EXPLORER_APP_ID,
         });

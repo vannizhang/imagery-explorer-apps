@@ -18,6 +18,7 @@ import { UIState, initialUIState } from './reducer';
 import { getAnimationSpeedFromHashParams } from '@shared/utils/url-hash-params';
 import { getOpenSavePanelFromSessionStorage } from '@shared/utils/session-storage/sessionStorage';
 import { IS_MOBILE_DEVICE } from '@shared/constants/UI';
+import { getLocaleSuggestionPreferenceFromLocalstorage } from '@shared/i18n/getAppLanguage';
 
 export const getPreloadedState4UI = (
     hashParams: URLSearchParams,
@@ -27,10 +28,15 @@ export const getPreloadedState4UI = (
 
     const showSavePanel = getOpenSavePanelFromSessionStorage();
 
+    // get the user's preference for disabling locale suggestions
+    const hasDisabledLocaleSuggestion =
+        getLocaleSuggestionPreferenceFromLocalstorage();
+
     const proloadedUIState: UIState = {
         ...initialUIState,
         keyOfSelectedInterestingPlace: randomInterestingPlace?.key || '',
         showSavePanel,
+        hasDisabledLocaleSuggestion,
     };
 
     if (animationSpeed && IS_MOBILE_DEVICE === false) {

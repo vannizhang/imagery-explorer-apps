@@ -28,6 +28,8 @@ export type AnimationStatus =
     | 'pausing'
     | 'failed-loading';
 
+export type AppHeaderDropdownPanel = 'app-list' | 'locale-switcher';
+
 export type TooltipData = {
     /**
      * title of the tooltip
@@ -100,6 +102,15 @@ export type UIState = {
      * if true, hide notification
      */
     hideNotification: boolean;
+    /**
+     * which dropdown panel is opened in the app header
+     */
+    appHeaderDropdownPanel: AppHeaderDropdownPanel;
+    /**
+     * if true, the user has chosen to not have the app suggest a locale on startup.
+     * This is used to prevent repeatedly suggesting a locale after the user has dismissed the suggestion.
+     */
+    hasDisabledLocaleSuggestion: boolean;
 };
 
 export const initialUIState: UIState = {
@@ -117,6 +128,8 @@ export const initialUIState: UIState = {
     showDocPanel: false,
     showSavePanel: false,
     hideNotification: false,
+    appHeaderDropdownPanel: null,
+    hasDisabledLocaleSuggestion: false,
 };
 
 const slice = createSlice({
@@ -181,6 +194,18 @@ const slice = createSlice({
         hideNotificationToggled: (state) => {
             state.hideNotification = !state.hideNotification;
         },
+        appHeaderDropdownPanelChanged: (
+            state,
+            action: PayloadAction<AppHeaderDropdownPanel>
+        ) => {
+            state.appHeaderDropdownPanel = action.payload;
+        },
+        hasDisabledLocaleSuggestionChanged: (
+            state,
+            action: PayloadAction<boolean>
+        ) => {
+            state.hasDisabledLocaleSuggestion = action.payload;
+        },
     },
 });
 
@@ -202,6 +227,8 @@ export const {
     showDocPanelToggled,
     showSavePanelToggled,
     hideNotificationToggled,
+    appHeaderDropdownPanelChanged,
+    hasDisabledLocaleSuggestionChanged,
 } = slice.actions;
 
 export default reducer;

@@ -17,11 +17,15 @@ import classNames from 'classnames';
 import { useAppSelector } from '@shared/store/configureStore';
 import { useAppDispatch } from '@shared/store/configureStore';
 import {
+    appHeaderDropdownPanelChanged,
     shouldShowAboutThisAppToggled,
     showDocPanelToggled,
 } from '../../store/UI/reducer';
 import useOnClickOutside from '@shared/hooks/useOnClickOutside';
-import { selectIsAnimationPlaying } from '@shared/store/UI/selectors';
+import {
+    selectAppHeaderDropdownPanel,
+    selectIsAnimationPlaying,
+} from '@shared/store/UI/selectors';
 import { APP_NAME, AppName } from '@shared/config';
 import { encodeMapCenter } from '@shared/utils/url-hash-params/map';
 import { selectMapCenter, selectMapZoom } from '@shared/store/Map/selectors';
@@ -32,7 +36,10 @@ import {
     useDataOfImageryUtilityApps,
 } from '@shared/hooks/useDataOfImageryExplorerApps';
 import { AppLauchList } from './AppLauchList';
-import { CalciteIcon } from '@esri/calcite-components-react';
+import { CalciteButton, CalciteIcon } from '@esri/calcite-components-react';
+import { useSupportedLocales } from '@shared/hooks/useSupportedLocales';
+import { LocaleSwitcher } from './LocaleSwitcher';
+import { useShouldSuggestLocale } from '@shared/hooks/useSuggestLocale';
 
 type Props = {
     /**
@@ -56,8 +63,8 @@ const AppHeader: FC<Props> = ({ title, showDocButton, docButtonTooltip }) => {
 
     const isAnimationPlaying = useAppSelector(selectIsAnimationPlaying);
 
-    const [showImageryExplorerAppsList, setShowImageryExplorerAppsList] =
-        useState<boolean>(false);
+    // const [showImageryExplorerAppsList, setShowImageryExplorerAppsList] =
+    //     useState<boolean>(false);
 
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -75,10 +82,75 @@ const AppHeader: FC<Props> = ({ title, showDocButton, docButtonTooltip }) => {
 
     const imageryUtilityApps = useDataOfImageryUtilityApps();
 
+    /**
+     * Get supported locales for the app
+     */
+    const supportedLocales = useSupportedLocales();
+
+    /**
+     * get the app header dropdown panel from the store
+     */
+    const appHeaderDropdownPanel = useAppSelector(selectAppHeaderDropdownPanel);
+
+    /**
+     * Determine whether to show the imagery explorer apps list
+     */
+    const showImageryExplorerAppsList = appHeaderDropdownPanel === 'app-list';
+
+    /**
+     * Determine whether to show the language switcher list.
+     * It should only show the language switcher list if there is more than one supported locale.
+     */
+    const showLocaleSwitcherList = useMemo(() => {
+        return (
+            appHeaderDropdownPanel === 'locale-switcher' &&
+            supportedLocales.length &&
+            supportedLocales.length > 1
+        );
+    }, [appHeaderDropdownPanel, supportedLocales?.length]);
+
+    /**
+     * Determine whether to show the language switcher button
+     */
+    const showLanguageSwitcherToggleButton = supportedLocales.length > 1;
+
+    /**
+     * Determine whether to suggest locale switch on app startup.
+     * This hook will open the locale switcher panel if it should suggest locale.
+     * The criteria for suggesting locale switch is:
+     * 1. there is a suggested locale
+     * 2. the suggested locale is different from the current app language
+     * 3. the user has not disabled locale suggestion
+     * 4. there is more than one supported locale
+     */
+    const shouldSuggestLocale = useShouldSuggestLocale(supportedLocales.length);
+
     useOnClickOutside(
         containerRef,
-        setShowImageryExplorerAppsList.bind(null, false)
+        // setShowImageryExplorerAppsList.bind(null, false)
+        () => {
+            // close any opened dropdown panel in the app header
+            // when clicked outside the app header
+            dispatch(appHeaderDropdownPanelChanged(null));
+        }
     );
+
+    // toggle the app launcher list visibility
+    const toggleAppLauncherList = () => {
+        const newValue = showImageryExplorerAppsList ? null : 'app-list';
+
+        dispatch(appHeaderDropdownPanelChanged(newValue));
+    };
+
+    // toggle the language switcher list visibility
+    const toggleLanguageSwitcherList = () => {
+        const newValue =
+            appHeaderDropdownPanel === 'locale-switcher'
+                ? null
+                : 'locale-switcher';
+
+        dispatch(appHeaderDropdownPanelChanged(newValue));
+    };
 
     return (
         <div
@@ -124,10 +196,11 @@ const AppHeader: FC<Props> = ({ title, showDocButton, docButtonTooltip }) => {
 
                     <div
                         className="cursor-pointer ml-2 flex items-center"
-                        onClick={setShowImageryExplorerAppsList.bind(
-                            null,
-                            !showImageryExplorerAppsList
-                        )}
+                        // onClick={setShowImageryExplorerAppsList.bind(
+                        //     null,
+                        //     !showImageryExplorerAppsList
+                        // )}
+                        onClick={toggleAppLauncherList}
                     >
                         {showImageryExplorerAppsList ? (
                             <CalciteIcon icon="chevron-up" />
@@ -150,6 +223,25 @@ const AppHeader: FC<Props> = ({ title, showDocButton, docButtonTooltip }) => {
                 </div>
             )}
 
+            {showLanguageSwitcherToggleButton && (
+                <div
+                    className="h-app-header-size w-app-header-size theme-background border-l border-custom-light-blue-50 pl-2 flex items-center"
+                    style={{
+                        '--calcite-button-text-color':
+                            'var(--custom-light-blue)',
+                    }}
+                    title={t('switch_language')}
+                >
+                    <CalciteButton
+                        appearance="transparent"
+                        scale="s"
+                        iconStart="language-2"
+                        label={t('switch_language')}
+                        onClick={toggleLanguageSwitcherList}
+                    ></CalciteButton>
+                </div>
+            )}
+
             {showImageryExplorerAppsList && (
                 <div
                     className={classNames(
@@ -163,35 +255,6 @@ const AppHeader: FC<Props> = ({ title, showDocButton, docButtonTooltip }) => {
                         )}
                         onClick={launchImageryExplorerApp}
                     />
-                    {/* <div className="px-2 py-2 text-xs text-custom-light-blue-50">
-                        <span>{t('image_explorer_apps')}</span>
-                    </div>
-
-                    {IMAGERY_EXPLORER_APPS
-                        .filter((d) => d.appName !== APP_NAME)
-                        .map((d) => {
-                            return (
-                                <span
-                                    key={d.title}
-                                    title={d.tooltip}
-                                    onClick={launchImageryExplorerApp.bind(
-                                        null,
-                                        d.url
-                                    )}
-                                >
-                                    <div className="w-full px-2 py-1 text-xs cursor-pointer flex items-center">
-                                        <CalciteIcon
-                                            icon="launch"
-                                            scale="s"
-                                            style={{ opacity: '.5' }}
-                                        />
-                                        <span className="ml-2 text-lg">
-                                            {d.title}
-                                        </span>
-                                    </div>
-                                </span>
-                            );
-                        })} */}
 
                     <AppLauchList
                         header={t('image_utility_apps')}
@@ -201,6 +264,13 @@ const AppHeader: FC<Props> = ({ title, showDocButton, docButtonTooltip }) => {
                         onClick={launchImageryExplorerApp}
                     />
                 </div>
+            )}
+
+            {showLocaleSwitcherList && (
+                <LocaleSwitcher
+                    data={supportedLocales}
+                    shouldSuggestLocale={shouldSuggestLocale}
+                />
             )}
         </div>
     );

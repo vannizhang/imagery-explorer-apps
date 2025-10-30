@@ -28,6 +28,12 @@ import { DateRange } from '@typing/shared';
 
 /**
  * modes that the user can use to explore the imagery layer/scene
+ * - `dynamic` mode to view the mosaicked scenes
+ * - `find a scene` mode to find and explorer a single scene
+ * - `swipe` mode to compare two scenes side by side using Swipe widget
+ * - `animate` mode to animate a list of scenes
+ * - `analysis` mode to analyze the selected scene
+ * - `spectral sampling` mode to sample data from a list of scenes
  */
 export type AppMode =
     | 'dynamic' // view the mosaicked scenes
@@ -39,13 +45,21 @@ export type AppMode =
 
 /**
  * the imagery explorer app supports these analysis tools
+ *
+ * - `mask` tool to mask out areas of the scene based on user-defined threshold
+ * - `trend` analysis tool to analyze pixel value trends over time
+ * - `spectral` profile tool to plot spectral profile for a selected point
+ * - `change` detection tool to compare two scenes
+ * - `temporal composite` tool to create a composite image from multiple scenes
+ * - `urban heat island` tool that runs Landsat Surface Intra-Urban Heat Island (SIUHI) workflow.
  */
 export type AnalysisTool =
-    | 'mask'
-    | 'trend'
-    | 'spectral'
-    | 'change'
-    | 'temporal composite';
+    | 'mask' // mask tool to mask out areas of the scene based on user-defined threshold
+    | 'trend' // trend analysis tool to analyze pixel value trends over time
+    | 'spectral' // spectral profile tool to plot spectral profile for a selected point
+    | 'change' // change detection tool to compare two scenes
+    | 'temporal composite' // temporal composite tool to create a composite image from multiple scenes
+    | 'urban heat island'; // urban heat island tool that runs Landsat Surface Intra-Urban Heat Island (SIUHI) workflow.
 
 /**
  * Query Params and Rendering Options for a Imagery Scene (e.g. Landsat or Sentinel-2)

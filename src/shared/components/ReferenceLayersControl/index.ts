@@ -13,4 +13,5 @@
  * limitations under the License.
  */
 
-export { ModeSelectorContainer as LandsatSurefaceTempModeSelector } from './ModeSelectorContainer';
+// export { ReferenceLayersToggleControl } from './ReferenceLayersToggleControl';
+export { ReferenceLayersControl } from './ReferenceLayersControl';

@@ -73,7 +73,7 @@ const ToggleButton: FC<ToggleButtonProps> = ({
 }: ToggleButtonProps) => {
     return (
         <div
-            className="mx-2 cursor-pointer z-10 flex items-center"
+            className="mx-2 my-1 md:my-0 cursor-pointer z-10 flex items-center"
             onClick={onToggle}
         >
             {active ? CheckIcon : UncheckIcon}
@@ -82,11 +82,11 @@ const ToggleButton: FC<ToggleButtonProps> = ({
     );
 };
 
-type Props = {
-    shoudHide: boolean;
-};
+// type Props = {
+//     shoudHide: boolean;
+// };
 
-export const ReferenceLayersToggleControl: FC<Props> = ({ shoudHide }) => {
+export const ReferenceLayersToggleControl: FC = () => {
     const dispatch = useAppDispatch();
 
     const showMapLabel = useAppSelector(selectShowMapLabel);
@@ -99,15 +99,16 @@ export const ReferenceLayersToggleControl: FC<Props> = ({ shoudHide }) => {
 
     return (
         <div
-            className={classNames(
-                'absolute bg-custom-background flex py-2 px-1 text-custom-light-blue text-xs top-map-ui-top-position',
-                {
-                    hidden: shoudHide,
-                }
-            )}
-            style={{
-                right: 15, // this is the margin to right value of JSAPI search Widget
-            }}
+            // className={classNames(
+            //     'absolute bg-custom-background flex py-2 px-1 text-custom-light-blue text-xs top-map-ui-top-position',
+            //     // {
+            //     //     hidden: shoudHide,
+            //     // }
+            // )}
+            // style={{
+            //     right: 15, // this is the margin to right value of JSAPI search Widget
+            // }}
+            className="md:flex relative py-2"
         >
             <ToggleButton
                 label={t('map_labels')}

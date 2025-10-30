@@ -21,10 +21,7 @@ import '@shared/components/calcite-components';
 
 import { getNLCDLandcoverExplorerStore } from './store';
 import { AppLayout } from './components/AppLayout/AppLayout';
-import { initEsriOAuth } from '../shared/utils/esri-oauth';
 import { ErrorPage } from '@shared/components/ErrorPage';
-import { initI18next } from '@shared/i18n/initI18next';
-import { APP_LANGUAGE } from '@shared/constants/UI';
 import {
     NLCD_LANDCOVER_EXPLORER_APP_ID,
     AGOL_PORTAL_ROOT,
@@ -41,19 +38,11 @@ import { initializeApp } from '@shared/utils/initialize-app/initializeApp';
     const root = createRoot(document.getElementById('root'));
 
     try {
-        // await initI18next(APP_LANGUAGE);
-
-        // await initEsriOAuth({
-        //     appId: NLCD_LANDCOVER_EXPLORER_APP_ID,
-        //     portalUrl: AGOL_PORTAL_ROOT,
-        // });
-
         await initializeApp({
             appId: NLCD_LANDCOVER_EXPLORER_APP_ID,
         });
 
         // // Load service information (Raster Attributes, Time Extent and etc) of NLCD Landcover layer
-        // await loadNLCDLandcoverServiceInfo();
         await getNLCDLandCoverRasterAttributeTable();
         const timeInfo = await loadTimeInfo(NLCD_LANDCOVER_IMAGE_SERVICE_URL);
 
