@@ -310,5 +310,9 @@
     "vertical": "Vertical",
     "horizontal": "Horizontal",
     "square": "Cuadrado",
-    "translation_provider_info": "Las traducciones localizadas para esta aplicación son proporcionadas por Esri España."
+    "translation_provider_info": "Las traducciones localizadas para esta aplicación son proporcionadas por Esri España.",
+    "switch_language": "Cambiar idioma",
+    "choose_language": "Elegir idioma",
+    "locale_switcher_suggestion_message": "¿Cambiar el idioma de la aplicación a {{locale}}?",
+    "do_not_show_again": "No mostrar de nuevo"
 }
