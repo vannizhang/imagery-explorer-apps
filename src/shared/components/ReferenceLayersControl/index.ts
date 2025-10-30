@@ -14,4 +14,4 @@
  */
 
 // export { ReferenceLayersToggleControl } from './ReferenceLayersToggleControl';
-export { ReferenceLayersAndLocaleControl } from './ReferenceLayersAndLocaleControl';
+export { ReferenceLayersControl } from './ReferenceLayersControl';

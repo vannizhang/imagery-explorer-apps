@@ -45,7 +45,7 @@ import { MapLoadingIndicator } from './MapLoadingIndicator';
 // import { queryLocation4TrendToolChanged } from '@shared/store/TrendTool/reducer';
 // import { updateQueryLocation4TrendTool } from '@shared/store/TrendTool/thunks';
 import Point from '@arcgis/core/geometry/Point';
-import { ReferenceLayersAndLocaleControl } from '../ReferenceLayersAndLocaleControl';
+import { ReferenceLayersControl } from '../ReferenceLayersControl';
 import ReferenceLayers from './ReferenceLayers';
 // import SearchWidget from '../SearchWidget/SearchWidget';
 import {
@@ -204,7 +204,7 @@ const MapViewContainer: FC<Props> = ({ mapOnClick, children }) => {
                 {/* <ZoomWidget /> */}
             </MapView>
 
-            <ReferenceLayersAndLocaleControl shoudHide={isAnimationPlaying} />
+            <ReferenceLayersControl shoudHide={isAnimationPlaying} />
         </div>
     );
 };

@@ -46,7 +46,7 @@ type Props = {
     shoudHide: boolean;
 };
 
-export const ReferenceLayersAndLocaleControl: FC<Props> = ({ shoudHide }) => {
+export const ReferenceLayersControl: FC<Props> = ({ shoudHide }) => {
     const { t } = useTranslation();
 
     // const supportedLocales = useSupportedLocales();
