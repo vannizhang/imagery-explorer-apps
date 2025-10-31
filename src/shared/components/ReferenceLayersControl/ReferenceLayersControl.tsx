@@ -34,6 +34,8 @@ import { ReferenceLayersToggleControl } from './ReferenceLayersToggleControl';
 // import { CalciteButton } from '@esri/calcite-components-react';
 // import { LocaleSwitcher } from './LocaleSwitcher';
 import { useTranslation } from 'react-i18next';
+import { IS_MOBILE_DEVICE } from '@shared/constants/UI';
+import { ReferenceLayersControlMobileDevice } from './ReferenceLayersControlMobileDevice';
 // import useOnClickOutside from '@shared/hooks/useOnClickOutside';
 
 // type ToggleButtonProps = {
@@ -47,24 +49,10 @@ type Props = {
 };
 
 export const ReferenceLayersControl: FC<Props> = ({ shoudHide }) => {
-    const { t } = useTranslation();
-
-    // const supportedLocales = useSupportedLocales();
-
-    // const showLocaleSwitcher = supportedLocales.length > 1;
-
-    // const [isLocaleMenuOpen, setIsLocaleMenuOpen] = React.useState(false);
-
-    const containerRef = React.useRef<HTMLDivElement>(null);
-
-    // useOnClickOutside(containerRef, () => {
-    //     setIsLocaleMenuOpen(false);
-    // });
-
     return (
         <div
             className={classNames(
-                'absolute bg-custom-background flex text-custom-light-blue text-xs top-map-ui-top-position',
+                'absolute text-custom-light-blue text-xs top-map-ui-top-position',
                 {
                     hidden: shoudHide,
                 }
@@ -72,35 +60,12 @@ export const ReferenceLayersControl: FC<Props> = ({ shoudHide }) => {
             style={{
                 right: 15, // this is the margin to right value of JSAPI search Widget
             }}
-            ref={containerRef}
         >
-            <ReferenceLayersToggleControl />
-            {/* 
-            {showLocaleSwitcher && (
-                <div
-                    className="flex items-center justify-center px-1 border-l border-custom-light-blue-50"
-                    style={{
-                        '--calcite-button-text-color':
-                            'var(--custom-light-blue)',
-                    }}
-                >
-                    <CalciteButton
-                        appearance="transparent"
-                        scale="s"
-                        // className="ml-2"
-                        kind="neutral"
-                        label={t('switch_language')}
-                        onClick={() => {
-                            setIsLocaleMenuOpen(!isLocaleMenuOpen);
-                        }}
-                        iconStart="language-2"
-                    />
-                </div>
+            {IS_MOBILE_DEVICE ? (
+                <ReferenceLayersControlMobileDevice />
+            ) : (
+                <ReferenceLayersToggleControl />
             )}
-
-            {showLocaleSwitcher && isLocaleMenuOpen && (
-                <LocaleSwitcher data={supportedLocales} />
-            )} */}
         </div>
     );
 };
