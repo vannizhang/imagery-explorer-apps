@@ -108,7 +108,7 @@ export const ReferenceLayersToggleControl: FC = () => {
             // style={{
             //     right: 15, // this is the margin to right value of JSAPI search Widget
             // }}
-            className="md:flex relative py-2"
+            className="md:flex relative py-2 theme-background"
         >
             <ToggleButton
                 label={t('map_labels')}
